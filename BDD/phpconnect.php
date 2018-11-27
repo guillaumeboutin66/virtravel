@@ -1,11 +1,12 @@
 <?php
-	class Database
+
+    class Database
 	{
 		private $Host;
 		private $User;
 		private $Password;
 		private $DbName;
-		private $Port;
+		//private $Port;
 		public $dbh;
 		
 		public function __construct()
@@ -14,10 +15,10 @@
 			$this->User ='id8007561_root';
 			$this->Password='workshop';
 			$this->DbName='id8007561_workshop';
-			$this->Port='3306';
+			//$this->Port='3306';
 		}
 		public function getConnection(){
-            $dsn = 'mysql:dbname=' . $this->DbName . ';host=' . $this->Host.';port=' . $this->Port;
+            $dsn = 'mysql:dbname=' . $this->DbName . ';host=' . $this->Host;
             try {
 				echo 'test avant Co';
 				$dbh = new PDO($dsn, $this->User, $this->Password);
@@ -30,4 +31,6 @@
 				return false;
             }
 	}
+	
+	
 ?>
