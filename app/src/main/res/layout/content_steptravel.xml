@@ -8,10 +8,22 @@
     tools:context=".TravelActivity"
     tools:showIn="@layout/activity_travel">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text=""
+            android:id="@+id/idTravel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text=""
+            android:id="@+id/nameTravel"/>
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
