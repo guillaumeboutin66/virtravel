@@ -64,11 +64,11 @@ public class ProjectAdapter extends BaseAdapter {
             currentView = inflater.inflate(R.layout.content_steptravel, parent, false);
         }
 
-        Travel project = projects.get(position);
+        Travel travel = projects.get(position);
 
-        if (project != null) {
-            ((TextView) currentView.findViewById(R.id.nameTravel)).setText(project.getName());
-            ((TextView) currentView.findViewById(R.id.idTravel)).setText(project.getId() >= 0 ? ""+project.getId()  : (""+0));
+        if (travel != null) {
+            //((TextView) currentView.findViewById(R.id.nameTravel)).setText(project.getName());
+            //((TextView) currentView.findViewById(R.id.idTravel)).setText(project.getId() >= 0 ? ""+project.getId()  : (""+0));
         }
 
         currentView.setOnLongClickListener(new View.OnLongClickListener() {
