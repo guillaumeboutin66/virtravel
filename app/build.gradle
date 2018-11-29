@@ -32,5 +32,4 @@ dependencies {
     implementation 'com.google.vr:sdk-common:1.160.0'
     implementation 'com.google.vr:sdk-commonwidget:1.160.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.github.qapqap:TimelineView:v1.6'
 }

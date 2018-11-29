@@ -18,9 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.qap.ctimelineview.TimelineRow;
-import org.qap.ctimelineview.TimelineViewAdapter;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +25,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import fr.guillaumeboutin.virtravel.Classes.VrTimeLine;
+import fr.guillaumeboutin.virtravel.Adapter.TimelineRow;
+import fr.guillaumeboutin.virtravel.Adapter.TimelineViewAdapter;
 
 public class StepTravelActivity extends AppCompatActivity {
 
@@ -55,9 +53,9 @@ public class StepTravelActivity extends AppCompatActivity {
         final int color = getRandomColor();
 
         // Add Random Rows to the List
-        for (int i=0; i<15; i++) {
+        for (int i=0; i<3; i++) {
             TimelineRowsList.add(
-                    new VrTimeLine(
+                    new TimelineRow(
                             //Row Id
                             i
                             //Row Date
@@ -78,6 +76,10 @@ public class StepTravelActivity extends AppCompatActivity {
                             , color
                             //Row Background Size in dp or -1
                             , 25
+                            , color
+                            , color
+                            , color
+                            , BitmapFactory.decodeResource(this.getResources(), R.drawable.panorama_preview_6)
                     )
             );
         }
@@ -123,13 +125,13 @@ public class StepTravelActivity extends AppCompatActivity {
             }
 
             private void isScrollCompleted() {
-                if (totalItem - currentFirstVisibleItem == currentVisibleItemCount
+                /*if (totalItem - currentFirstVisibleItem == currentVisibleItemCount
                         && this.currentScrollState == SCROLL_STATE_IDLE) {
-                    /** To do code here*/
+                    *//** To do code here*//*
 
                     for (int i=0; i<15; i++) {
                         myAdapter.add(
-                                new VrTimeLine(
+                                new TimelineRow(
                                         //Row Id
                                         i
                                         //Row Date
@@ -154,7 +156,7 @@ public class StepTravelActivity extends AppCompatActivity {
                         );
                     }
 
-                }
+                }*/
             }
 
 
