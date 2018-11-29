@@ -2,7 +2,7 @@ package fr.guillaumeboutin.virtravel.Manager;
 
 import android.content.Context;
 
-import fr.guillaumeboutin.virtravel.Classes.Picture;
+import fr.guillaumeboutin.virtravel.Classes.StepTravel;
 import fr.guillaumeboutin.virtravel.Classes.Travel;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -41,7 +41,7 @@ public class RealmManager {
     public int getNextKeyPicture()
     {
         try {
-            return realm.where(Picture.class).max("id").intValue() + 1;
+            return realm.where(StepTravel.class).max("id").intValue() + 1;
         } catch (Exception e)
         {
             return 0;
@@ -51,8 +51,8 @@ public class RealmManager {
         return realm.where(Travel.class).findAll();
     }
 
-    public RealmResults<Picture> getPicturesByTravel(int idTravel){
-        return realm.where(Picture.class).equalTo("idTravel", idTravel).findAll();
+    public RealmResults<StepTravel> getPicturesByTravel(int idTravel){
+        return realm.where(StepTravel.class).equalTo("idTravel", idTravel).findAll();
     }
 
 }

@@ -1,5 +1,7 @@
 package fr.guillaumeboutin.virtravel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,23 +19,41 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import fr.guillaumeboutin.virtravel.Adapter.TimelineRow;
 import fr.guillaumeboutin.virtravel.Adapter.TimelineViewAdapter;
+import fr.guillaumeboutin.virtravel.Classes.StepTravel;
+import fr.guillaumeboutin.virtravel.Classes.Travel;
+import fr.guillaumeboutin.virtravel.Manager.RealmManager;
 
-public class StepTravelActivity extends AppCompatActivity {
+public class StepTravelActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     //Create Timeline Rows List
     private ArrayList<TimelineRow> TimelineRowsList = new ArrayList<>();
     ArrayAdapter<TimelineRow> myAdapter;
+    Travel travel;
+    private RealmManager rm;
+    private Context ctx;
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +70,19 @@ public class StepTravelActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        ctx = this;
+        rm = new RealmManager(ctx);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if(b!=null)
+        {
+            int position =(int) b.get("position");
+            travel = rm.getTravels().get(position);
+            getSupportActionBar().setTitle(travel.getName());
+        }
 
         final int color = getRandomColor();
 
@@ -197,21 +231,18 @@ public class StepTravelActivity extends AppCompatActivity {
         };
         myListView.setOnItemClickListener(adapterListener);
 
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
-
-
-
-
-
-
 
 
 
     //Random Methods
     public int getRandomColor(){
         Random rnd = new Random();
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        //return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        return Color.argb(255, 13, 71, 161);
     }
 
     public int getRandomNumber(int min, int max){
@@ -254,5 +285,39 @@ public class StepTravelActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+        //List<LatLng> etapes = new ArrayList();
+        List<StepTravel> etapes = new ArrayList();
+
+        // Add a marker in Sydney and move the camera
+        etapes.add(new StepTravel(0,travel.getId(), travel.getName(), "", -34.00, 151.00));
+        etapes.add(new StepTravel(0,travel.getId(), travel.getName(), "", -32.00, 147.00));
+        etapes.add(new StepTravel(0,travel.getId(), travel.getName(), "", -28.00, 144.00));
+
+        this.mMap = googleMap;
+
+        setEtapesOnMap(etapes);
+    }
+
+    public void setEtapesOnMap(List<StepTravel> etapes) {
+        //Instanciation
+        PolylineOptions rectOptions = new PolylineOptions();
+
+        for (StepTravel etape: etapes) {
+            //Ajout du marqueur
+            this.mMap.addMarker(new MarkerOptions().position(new LatLng(etape.getCoordLong(), etape.getCoordLatt())).title(etape.getName()));
+
+            //Ajout du Polyline
+            rectOptions.add(new LatLng(etape.getCoordLong(), etape.getCoordLatt()));
+        }
+
+        this.mMap.addPolyline(rectOptions);
+        this.mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(etapes.get(0).getCoordLong(), etapes.get(0).getCoordLatt())));
     }
 }

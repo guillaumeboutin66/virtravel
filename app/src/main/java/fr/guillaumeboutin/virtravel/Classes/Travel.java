@@ -10,7 +10,7 @@ import io.realm.RealmObject;
 public class Travel extends RealmObject {
     private int id;
     private String name;
-    private RealmList<Picture> pictures;
+    private RealmList<StepTravel> stepTravels;
 
     public int getId() {
         return id;
@@ -28,15 +28,15 @@ public class Travel extends RealmObject {
         this.name = name;
     }
 
-    public RealmList<Picture> getPictures() {
-        return pictures;
+    public RealmList<StepTravel> getStepTravels() {
+        return stepTravels;
     }
 
-    public void setPictures(RealmList<Picture> pictures) {
-        this.pictures = pictures;
+    public void setStepTravels(RealmList<StepTravel> stepTravels) {
+        this.stepTravels = stepTravels;
     }
 
-    public void addImages(Picture picture) {
-        this.pictures.add(picture);
+    public void addImages(StepTravel stepTravel) {
+        this.stepTravels.add(stepTravel);
     }
 }

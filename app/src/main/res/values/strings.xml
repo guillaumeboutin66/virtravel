@@ -64,4 +64,8 @@
 
     <string name="AND">and</string>
 
+    <string name="facebook_app_id">333841227194990</string>
+    <string name="fb_login_protocol_scheme">fb333841227194990</string>
+
+
 </resources>

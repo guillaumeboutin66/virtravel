@@ -18,9 +18,17 @@
         <ListView
             android:id="@+id/timelineListView"
             android:layout_width="match_parent"
-            android:layout_height="1000dp"
+            android:layout_height="750dp"
             >
         </ListView>
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/timelineListView"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            tools:context=".StepTravelActivity"/>
 
     </RelativeLayout>
 

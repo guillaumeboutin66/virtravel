@@ -72,7 +72,7 @@ public class TravelAdapter extends BaseAdapter {
 
         if (travel != null) {
             ((ImageView) currentView.findViewById(R.id.travelPic)).setImageBitmap(BitmapFactory.decodeResource(currentView.getResources(), getRandomPicture(position)));
-            ((TextView) currentView.findViewById(R.id.nameTravel)).setText(travel.getName() + "( "+ (travel.getId() >= 0 ? ""+travel.getId()  : (""+0)) + ")");
+            ((TextView) currentView.findViewById(R.id.nameTravel)).setText(travel.getName() + " ("+ (travel.getId() >= 0 ? ""+travel.getId()  : (""+0)) + ")");
             ((TextView) currentView.findViewById(R.id.idTravel)).setText("by Guillaume Boutin");
         }
 

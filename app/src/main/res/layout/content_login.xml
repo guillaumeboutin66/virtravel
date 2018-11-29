@@ -8,13 +8,29 @@
     tools:context=".TravelActivity"
     tools:showIn="@layout/activity_travel">
 
-    <Button
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Future Connexion Facebook"
-        android:background="#fff"
-        android:textColor="@color/colorAccent"
-        android:padding="10sp"
-        android:id="@+id/button_login"/>
+        android:layout_height="500dp"
+        >
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_marginLeft="50dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/virtravel_logo"
+            android:layout_gravity="center_horizontal"/>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/button_login"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@id/logo" />
+
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

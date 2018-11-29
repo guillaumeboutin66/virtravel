@@ -11,7 +11,7 @@ import com.google.vr.sdk.widgets.pano.VrPanoramaView;
 
 import java.util.List;
 
-import fr.guillaumeboutin.virtravel.Classes.Picture;
+import fr.guillaumeboutin.virtravel.Classes.StepTravel;
 import fr.guillaumeboutin.virtravel.R;
 
 /**
@@ -20,30 +20,30 @@ import fr.guillaumeboutin.virtravel.R;
 
 public class ImageProjectAdapter  extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<Picture> pictures = null;
+    private List<StepTravel> stepTravels = null;
 
     public ImageProjectAdapter(Context context) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setData(List<Picture> pictures) {
-        this.pictures = pictures;
+    public void setData(List<StepTravel> stepTravels) {
+        this.stepTravels = stepTravels;
     }
 
     @Override
     public int getCount() {
-        if (pictures == null) {
+        if (stepTravels == null) {
             return 0;
         }
-        return pictures.size();
+        return stepTravels.size();
     }
 
     @Override
-    public Picture getItem(int position) {
-        if (pictures == null || pictures.get(position) == null) {
+    public StepTravel getItem(int position) {
+        if (stepTravels == null || stepTravels.get(position) == null) {
             return null;
         }
-        return pictures.get(position);
+        return stepTravels.get(position);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class ImageProjectAdapter  extends BaseAdapter {
             currentView = inflater.inflate(R.layout.image_listitem, parent, false);
         }
 
-        Picture picture = pictures.get(position);
+        StepTravel stepTravel = stepTravels.get(position);
 
-        if (picture != null) {
-            //int id = currentView.getResources().getIdentifier("fr.guillaumeboutin.vrapplication1:drawable/" + picture.getName(), null, null);
+        if (stepTravel != null) {
+            //int id = currentView.getResources().getIdentifier("fr.guillaumeboutin.vrapplication1:drawable/" + stepTravel.getName(), null, null);
             VrPanoramaView vr = ((VrPanoramaView) currentView.findViewById(R.id.imageButton));
-            vr.loadImageFromBitmap(BitmapFactory.decodeFile(picture.getUrl()), null);
+            vr.loadImageFromBitmap(BitmapFactory.decodeFile(stepTravel.getUrl()), null);
 
             vr.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

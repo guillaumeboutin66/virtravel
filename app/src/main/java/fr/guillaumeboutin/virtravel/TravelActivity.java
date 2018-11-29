@@ -40,6 +40,18 @@ public class TravelActivity extends AppCompatActivity  implements AdapterView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // POUR AJOUTER LE NOM DU MEC
+        // getSupportActionBar().setTitle(travel.getName());
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if(b!=null)
+        {
+            int UserID =(int) b.get("User ID");
+            int AuthToken =(int) b.get("Auth Token");
+            // getSupportActionBar().setTitle(travel.getName());
+        }
+
         ctx = this;
 
         rm = new RealmManager(ctx);
@@ -71,8 +83,10 @@ public class TravelActivity extends AppCompatActivity  implements AdapterView.On
                         mAdapter.setData(rm.getTravels());
 
                         Log.e("Number", "Count travels : "+rm.getTravels().size());
+                        mGridView.getLayoutParams().height = 445 * rm.getTravels().size();
                         mAdapter.notifyDataSetChanged();
                         mGridView.setAdapter(mAdapter);
+
                     }
                 });
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -110,6 +124,9 @@ public class TravelActivity extends AppCompatActivity  implements AdapterView.On
             mGridView.setAdapter(mAdapter);
             mGridView.setOnItemClickListener(TravelActivity.this);
             mAdapter.notifyDataSetChanged();
+
+            mGridView.getLayoutParams().height = 445 * rm.getTravels().size();
+
             mGridView.invalidate();
 
             mGridView.setOnItemClickListener(
