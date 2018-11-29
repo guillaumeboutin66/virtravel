@@ -8,3 +8,9 @@ Pour voir une table specifique , il faut pour l'instant edité le dossier phpExec
 mettre en commentaire le getAllData() et utilisé le readtablejson('La table que vous souhaiter lire")
 
 j'essayerai de mettre un formulaire qui a le checkbox de toute les tables et donne le resultat souhaité mais je risque d'etre pris de court. 
+
+pour le formulaire voici le lien
+
+https://virt-travel.000webhostapp.com/FormPhp.php
+
+il a un soucis sur le post qui ne veux pas se faire

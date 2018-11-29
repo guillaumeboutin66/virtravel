@@ -70,5 +70,4 @@ function readtablejson($search){
 		}
 	}
 }
-getAllData();
 ?>
