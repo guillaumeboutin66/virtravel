@@ -20,10 +20,10 @@
 		public function getConnection(){
             $dsn = 'mysql:dbname=' . $this->DbName . ';host=' . $this->Host;
             try {
-				echo 'test avant Co';
+				//echo 'test avant Co';
 				$dbh = new PDO($dsn, $this->User, $this->Password);
 				$this->dbh = $dbh;
-				echo 'test apres connection';
+				//echo 'test apres connection';
 				return $dbh;
             } catch (PDOException $e) {
 				echo 'Connexion échouée : ' . $e->getMessage();

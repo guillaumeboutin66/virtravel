@@ -1,0 +1,10 @@
+pour acceder a l'ensemble des données en JSON il faut utiliser cette URL :
+
+https://virt-travel.000webhostapp.com/phpExec.php
+
+La base et convertie en JSON 
+
+Pour voir une table specifique , il faut pour l'instant edité le dossier phpExec.php 
+mettre en commentaire le getAllData() et utilisé le readtablejson('La table que vous souhaiter lire")
+
+j'essayerai de mettre un formulaire qui a le checkbox de toute les tables et donne le resultat souhaité mais je risque d'etre pris de court. 
