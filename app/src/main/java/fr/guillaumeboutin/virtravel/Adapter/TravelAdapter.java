@@ -4,13 +4,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import fr.guillaumeboutin.virtravel.Classes.Travel;
@@ -21,36 +25,36 @@ import fr.guillaumeboutin.virtravel.StepTravelActivity;
 /** Created by guillaumeboutin on 27/03/2017.
  */
 
-public class ProjectAdapter extends BaseAdapter {
+public class TravelAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<Travel> projects = null;
+    private List<Travel> travels = null;
     private Context context;
     private RealmManager rm;
 
-    public ProjectAdapter(Context context) {
+    public TravelAdapter(Context context) {
         this.context = context;
         this.rm = new RealmManager(context);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setData(List<Travel> projects) {
-        this.projects = projects;
+    public void setData(List<Travel> travels) {
+        this.travels = travels;
     }
 
     @Override
     public int getCount() {
-        if (projects == null) {
+        if (travels == null) {
             return 0;
         }
-        return projects.size();
+        return travels.size();
     }
 
     @Override
     public Travel getItem(int position) {
-        if (projects == null || projects.get(position) == null) {
+        if (travels == null || travels.get(position) == null) {
             return null;
         }
-        return projects.get(position);
+        return travels.get(position);
     }
 
     @Override
@@ -61,14 +65,15 @@ public class ProjectAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View currentView, ViewGroup parent) {
         if (currentView == null) {
-            currentView = inflater.inflate(R.layout.content_steptravel, parent, false);
+            currentView = inflater.inflate(R.layout.travel_listitem, parent, false);
         }
 
-        Travel project = projects.get(position);
+        Travel travel = travels.get(position);
 
-        if (project != null) {
-            ((TextView) currentView.findViewById(R.id.nameTravel)).setText(project.getName());
-            ((TextView) currentView.findViewById(R.id.idTravel)).setText(project.getId() >= 0 ? ""+project.getId()  : (""+0));
+        if (travel != null) {
+            ((ImageView) currentView.findViewById(R.id.travelPic)).setImageBitmap(BitmapFactory.decodeResource(currentView.getResources(), getRandomPicture(position)));
+            ((TextView) currentView.findViewById(R.id.nameTravel)).setText(travel.getName() + "( "+ (travel.getId() >= 0 ? ""+travel.getId()  : (""+0)) + ")");
+            ((TextView) currentView.findViewById(R.id.idTravel)).setText("by Guillaume Boutin");
         }
 
         currentView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -81,13 +86,13 @@ public class ProjectAdapter extends BaseAdapter {
                     builder = new AlertDialog.Builder(context);
                 }
                 builder.setTitle("Supprimer le projet")
-                        .setMessage("Etes-vous sûr de vouloir supprimer ce projet ?")
+                        .setMessage("Etes-vous sûr de vouloir supprimer ce voyage ?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 rm.getRealm().beginTransaction();
                                 Travel travel = rm.getRealm().where(Travel.class).equalTo("id",getItemId(position)).findFirst();
                                 travel.deleteFromRealm();
-                                //projects.remove(position);
+                                //travels.remove(position);
                                 rm.getRealm().commitTransaction();
                                 refresh();
                             }
@@ -117,12 +122,25 @@ public class ProjectAdapter extends BaseAdapter {
     }
 
     private void refresh(){
-        ProjectAdapter.this.notifyDataSetChanged();
+        TravelAdapter.this.notifyDataSetChanged();
     }
 
     private void startAct(int position){
         Intent intent = new Intent(context, StepTravelActivity.class);
         intent.putExtra("position", position);
         context.startActivity(intent);
+    }
+
+
+    public int getRandomPicture(Integer position){
+        List<Integer> pictures = Arrays.asList(R.drawable.panorama_preview_0
+                ,R.drawable.panorama_preview_1
+                ,R.drawable.panorama_preview_2
+                ,R.drawable.panorama_preview_3
+                ,R.drawable.panorama_preview_4
+                ,R.drawable.panorama_preview_5
+                ,R.drawable.panorama_preview_6
+                ,R.drawable.panorama_preview_7);
+        return  pictures.get(position % 7);
     }
 }
